@@ -1,0 +1,9 @@
+{
+    "client_id": null,
+    "client_secret": null,
+    "redirect_uri": null,
+    "access_token": null,
+    "refresh_token": null,
+    "trakt_username": null,
+    "tmdb_api_key": null
+}
