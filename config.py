@@ -1,6 +1,5 @@
 import json
 import requests
-import webbrowser
 import time
 from urllib.parse import urlparse, parse_qs
 
@@ -10,8 +9,9 @@ config_file_path = 'config.json'
 def prompt_for_input(prompt):
     return input(prompt).strip()
 
-def create_config_file(client_id, client_secret, redirect_uri, tmdb_api_key):
+def create_config_file(client_id, client_secret, redirect_uri, tmdb_api_key, trakt_username):
     config = {
+        'trakt_username': trakt_username,
         'client_id': client_id,
         'client_secret': client_secret,
         'redirect_uri': redirect_uri,
@@ -30,8 +30,7 @@ def get_authorization_code(client_id, redirect_uri):
         f"&redirect_uri={redirect_uri}"
     )
     print(f"Please go to this URL and authorize the app: {auth_url}")
-    webbrowser.open(auth_url)
-
+    
     full_redirect_url = input("Enter the full redirected URL: ")
     
     parsed_url = urlparse(full_redirect_url)
@@ -91,12 +90,13 @@ def refresh_access_token(client_id, client_secret, redirect_uri, refresh_token):
 def main():
     print("Welcome to the configuration setup script.")
 
+    trakt_username = prompt_for_input("Enter your Trakt username: ")
     client_id = prompt_for_input("Enter your Trakt API client ID: ")
     client_secret = prompt_for_input("Enter your Trakt API client secret: ")
     redirect_uri = prompt_for_input("Enter your redirect URI: ")
     tmdb_api_key = prompt_for_input("Enter your TMDb API key: ")
 
-    create_config_file(client_id, client_secret, redirect_uri, tmdb_api_key)
+    create_config_file(client_id, client_secret, redirect_uri, tmdb_api_key, trakt_username)
 
     authorization_code = get_authorization_code(client_id, redirect_uri)
 
