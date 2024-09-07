@@ -2,7 +2,7 @@
 
 # Update package list and install required packages
 sudo apt-get update
-sudo apt-get install -y python3-pip python3-dev fbi
+sudo apt-get install -y python3-pip python3-dev fbi python3-pil
 
 # Install Python packages from requirements.txt
 pip3 install -r requirements.txt
