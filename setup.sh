@@ -2,7 +2,7 @@
 
 # Update package list and install required packages
 sudo apt-get update
-sudo apt-get install -y python3-pip python3-dev fbi python3-pil
+sudo apt-get install -y python3-pip python3-dev fbi python3-pillow
 
 # Install Python packages from requirements.txt
 pip3 install -r requirements.txt
@@ -11,10 +11,6 @@ pip3 install -r requirements.txt
 USER=$(whoami)
 GROUP=$(id -gn)
 
-# Get the path of the current script
-SCRIPT_PATH=$(realpath "$0")
-SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
-
 # Create systemd service file
 cat <<EOF | sudo tee /etc/systemd/system/poster.service
 [Unit]
@@ -22,8 +18,8 @@ Description=Poster Display Script
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 $SCRIPT_PATH
-WorkingDirectory=$SCRIPT_DIR
+ExecStart=/usr/bin/python3 /home/pi/PosterPi/posters.py
+WorkingDirectory=/home/pi/PosterPi
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
